@@ -8,9 +8,11 @@
 #include "Camera.h"
 #include "TextureImages.h"
 #include "GuiManager.h"
+#include <string>
 
 #define logicalDevice VulkanManager::GetInstance()->GetLogicalDevice()
 #define physicalDevice VulkanManager::GetInstance()->GetPhysicalDevice()
+
 static void check_vk_result(VkResult err)
 {
 	if (err == 0)
@@ -184,6 +186,9 @@ void GuiManager::Draw(uint32_t imageIndex)
 }
 void GuiManager::DrawGUI()
 {
+	GameManager gManager;
+	char xLoc[20] = "Centered";
+	
 	static ImVec4 v4Color = ImColor(255, 0, 0);
 	ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar;
 	ImGui::SetNextWindowPos(ImVec2(1, 1), 0);
@@ -197,8 +202,7 @@ void GuiManager::DrawGUI()
 			ImGui::GetIO().Framerate, 1000.0f / ImGui::GetIO().Framerate);
 		ImGui::Separator();
 		ImGui::Text("Controls:\n");
-		ImGui::Text(" WASDQE: Movement\n");
-		ImGui::Text(" Right Click: Rotation toggle\n");
+		ImGui::Text(" WASD: Movement\n");
 		ImGui::Text(" F9: Toggle Debug Handles\n");
 	}
 	ImGui::End();

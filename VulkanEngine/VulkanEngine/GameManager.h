@@ -13,7 +13,13 @@ private:
 
 	float cameraSpeed = 2.5f;
 	bool lockCamera = true;
+
+	
 public:
+	std::string objectLocationX;
+	std::string objectLocationY;
+	std::string objectLocationXCopy;
+	std::string objectLocationYCopy;
 #pragma region Singleton
 
 	static GameManager* GetInstance();

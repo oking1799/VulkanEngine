@@ -184,14 +184,16 @@ void EntityManager::Draw(uint32_t imageIndex, VkCommandBuffer* commandBuffer)
 
                 //Add the color instance buffer only for the debug shapes
                 VkBuffer colorBuffer[1];
+				//std::cout << DebugManager::GetInstance()->GetInstanceBuffers().count(mesh) << std::endl;
                 if (DebugManager::GetInstance()->GetInstanceBuffers().count(mesh) != 0) {
+					//buffer is null for some reason
                      colorBuffer[0] = DebugManager::GetInstance()->GetInstanceBuffers()[mesh]->GetBuffer();
                     vkCmdBindVertexBuffers(*commandBuffer, 2, 1, colorBuffer, offsets);
                 }
 
                 VkBuffer indexBuffers[] = { mesh->GetIndexBuffer()->GetBuffer() };
                 vkCmdBindIndexBuffer(*commandBuffer, mesh->GetIndexBuffer()->GetBuffer(), 0, VK_INDEX_TYPE_UINT16);//Per mesh
-
+				//seems when GetIndicies is called the error occurs
                 vkCmdDrawIndexed(*commandBuffer, static_cast<uint32_t>(mesh->GetIndices().size()), mesh->GetActiveInstanceCount(), 0, 0, 0);//Per mesh
             }
         }
